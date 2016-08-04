@@ -104,7 +104,7 @@ cocos new -l cpp -p com.razerzone.store.sdk.engine.cocos2d.examples.inapppurchas
 
 The `InAppPurchases\proj.visualstudio\Cocos2dcpp\jni\main.cpp` has a special `JNI` hook to load the `RazerSDK` plugin.
 
-'''
+```
 // only runs on Android
 #if ANDROID
 
@@ -115,7 +115,7 @@ The `InAppPurchases\proj.visualstudio\Cocos2dcpp\jni\main.cpp` has a special `JN
 #include "RazerSDK\RazerSDK_Plugin.h"
 
 #endif
-'''
+```
 
 Use the main `JNI` hook to initialize the `Java` plugin at the right time. The sample has all the `RazerSDK API` calls in `InAppPurchases\Classes\HelloWorldScene.cpp`.
 

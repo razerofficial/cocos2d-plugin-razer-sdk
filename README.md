@@ -202,3 +202,52 @@ See the [RazerSDK Documentation](https://github.com/razerofficial/razer-sdk-docs
 
 	RazerSDK::Plugin::initPlugin(secretApiKey, &_sMain_CallbacksInitPlugin);
 ```
+
+### RequestGamerInfo
+
+```
+	RazerSDK::Plugin::requestGamerInfo(&_sMain_CallbacksRequestGamerInfo);
+```
+
+### RequestProducts
+
+```
+	std::vector<std::string> products;
+	products.push_back("long_sword");
+	products.push_back("sharp_axe");
+	products.push_back("__DECLINED__THIS_PURCHASE");
+	RazerSDK::Plugin::requestProducts(products, &_sMain_CallbacksRequestProducts);
+```
+
+### RequestPurchase
+
+```
+	std::string identifier = "long_sword";
+
+	// purchase an entitlement
+	std::string productType = "ENTITLEMENT";
+	RazerSDK::Plugin::requestPurchase(identifier, productType, &_sMain_CallbacksRequestPurchase);
+
+	// purchase a consumable
+	std::string productType = "CONSUMABLE";
+	RazerSDK::Plugin::requestPurchase(identifier, productType, &_sMain_CallbacksRequestPurchase);
+```
+
+### RequestReceipts
+
+```
+	RazerSDK::Plugin::requestReceipts(&_sMain_CallbacksRequestReceipts);
+```
+
+### Shutdown
+
+```
+	RazerSDK::Plugin::shutdown(&_sMain_CallbacksShutdown);
+```
+
+### Quit
+
+```
+	//Close the cocos2d-x game scene and quit the application
+	Director::getInstance()->end();
+```

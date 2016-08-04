@@ -12,9 +12,9 @@ The [RazerSDK](https://github.com/razerofficial/razer-sdk-docs) can be accessed 
 
 * Download the [Cocos2d Engine](http://www.cocos2d-x.org/)
 
-* Install [Python 2.7](https://www.python.org/)
+* Download [Python 2.7](https://www.python.org/)
 
-* Install [NVIDIA Codeworks for Android](https://developer.nvidia.com/AndroidWorks)
+* Download [NVIDIA Codeworks for Android](https://developer.nvidia.com/AndroidWorks)
 
 * Download [proj.visualstudio.zip](https://aka.ms/vscocosandroidsample) from the [Cocos2d-x Visual Studio Android Project](https://blogs.msdn.microsoft.com/vcblog/2016/07/12/cocos2d-x-visual-studio-android-project/) blog post
 
@@ -22,9 +22,9 @@ The [RazerSDK](https://github.com/razerofficial/razer-sdk-docs) can be accessed 
 
 * Download the `Cocos2d Engine` and unpack `cocos2d-x-3.12`
 
-* Download `Python 2.7` and add `Python` to your path
+* Install `Python 2.7` and add `Python` to your path
 
-* Download and install `NVIDIA Codeworks for Android`
+* Install `NVIDIA Codeworks for Android`
 
 * Run the following command from the unpacked `cocos2d-x-3.12` folder:
 
@@ -32,12 +32,12 @@ The [RazerSDK](https://github.com/razerofficial/razer-sdk-docs) can be accessed 
 python setup.py
 ```
 
-* When prompted enter any missing paths, similar to the following:
+* When prompted, enter any missing paths (similar to the following):
 
 ```
-->Please enter the path of ANDROID_SDK_ROOT (or press Enter to skip): C:\NVPACK\android-sdk-windows\
+->Please enter the path of ANDROID_SDK_ROOT (or press Enter to skip):C:\NVPACK\android-sdk-windows\
  
-->Please enter the path of ANT_ROOT (or press Enter to skip): C:\NVPACK\apache-ant-1.8.2\bin
+->Please enter the path of ANT_ROOT (or press Enter to skip):C:\NVPACK\apache-ant-1.8.2\bin
 ``` 
 
 * After the setup is complete, close and reopen the terminal
@@ -82,11 +82,13 @@ $(VS_NdkRoot)\sources\android\native_app_glue
 
 ![image_1](image-md/image_1.png)
 
-* Generate the `Cocos2d` project with the following command:
+* Generate the `Cocos2d` project with the following command (similar to the following):
 
 ```
 cocos new -l cpp -p com.razerzone.store.sdk.engine.cocos2d.examples.inapppurchases -d C:\Cocos2d InAppPurchases
 ```
+
+* Unpack `proj.visualstudio.zip` in the generated `InAppPurchases` folder
 
 * Copy this repository's `InAppPurchases` folder over the generated `InAppPurchases` folder
 

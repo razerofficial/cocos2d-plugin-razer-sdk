@@ -143,7 +143,23 @@ The `HelloWorldScene` defines several `RazerSDK` callbacks to handle communicati
 	static Main_CallbacksRequestReceipts _sMain_CallbacksRequestReceipts;
 	static Main_CallbacksShutdown _sMain_CallbacksShutdown;
 #endif
-``` 
+```
+
+The sample extends several `RazerSDK` callbacks so that the main application code can display results in the UI. The sample application callbacks are prefixed with `Main`.
+
+```
+#if ANDROID
+#include "RazerSDK\RazerSDK_CallbacksInitPlugin.h"
+
+class Main_CallbacksInitPlugin : public CallbacksInitPlugin
+{
+public:
+	void OnSuccess();
+	void OnFailure(int errorCode, const std::string& errorMessage);
+};
+
+#endif
+```
 
 The `HelloWorldScene` uses `Cocos2d` button callbacks to invoke the `RazerSDK` API calls.
 

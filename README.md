@@ -99,3 +99,90 @@ cocos new -l cpp -p com.razerzone.store.sdk.engine.cocos2d.examples.inapppurchas
 * Open `InAppPurchases\proj.visualstudio\Cocos2d.sln` in `Visual Studio 2015`
 
 * In Visual Studio, Run with the `Debug->Run Without Debugging` menu item
+
+#### Main.cpp
+
+The `InAppPurchases\proj.visualstudio\Cocos2dcpp\jni\main.cpp` has a special `JNI` hook to load the `RazerSDK` plugin.
+
+'''
+// only runs on Android
+#if ANDROID
+
+// Get a reference to the Hello World Example scene which has buttons that call the plugin
+#include "..\..\..\Classes\HelloWorldScene.h"
+
+// Get a reference to the plugin so it can be initialized
+#include "RazerSDK\RazerSDK_Plugin.h"
+
+#endif
+'''
+
+Use the main `JNI` hook to initialize the `Java` plugin at the right time. The sample has all the `RazerSDK API` calls in `InAppPurchases\Classes\HelloWorldScene.cpp`.
+
+```
+void cocos_android_app_init (JNIEnv* env) {
+    LOGD("cocos_android_app_init");
+    AppDelegate *pAppDelegate = new AppDelegate();
+
+#if ANDROID
+	LOGD("Cocos2D RazerSDK Plugin Loading...");
+	RazerSDK::Plugin::InitJNI();
+	HelloWorld::GetInstance()->InitPlugin();
+#endif
+}
+```
+
+The `HelloWorldScene` defines several `RazerSDK` callbacks to handle communication from the `RazerSDK` back to `Cocos2d`. The callbacks are static to avoid the pointers from going out of scope.
+
+```
+#if ANDROID
+	static Main_CallbacksInitPlugin _sMain_CallbacksInitPlugin;
+	static Main_CallbacksRequestGamerInfo _sMain_CallbacksRequestGamerInfo;
+	static Main_CallbacksRequestProducts _sMain_CallbacksRequestProducts;
+	static Main_CallbacksRequestPurchase _sMain_CallbacksRequestPurchase;
+	static Main_CallbacksRequestReceipts _sMain_CallbacksRequestReceipts;
+	static Main_CallbacksShutdown _sMain_CallbacksShutdown;
+#endif
+``` 
+
+The `HelloWorldScene` uses `Cocos2d` button callbacks to invoke the `RazerSDK` API calls.
+
+```
+void HelloWorld::shutdownCallback(Ref* pSender)
+{
+	RazerSDK::Plugin::shutdown(&_sMain_CallbacksShutdown);
+}
+```
+
+`RazerSDK` callbacks occur outside the main thread and the `cocos2d::Director` has to be used so that the callback can interact with the `Cocos2d` UI.
+
+```
+void Main_CallbacksShutdown::OnSuccess()
+{
+	cocos2d::Director::getInstance()->getScheduler()->performFunctionInCocosThread([] {
+		// execute code on main thread
+		HelloWorld::GetInstance()->UpdateStatusText("Shutdown: Success!");
+		HelloWorld::GetInstance()->Shutdown();
+	});
+}
+```
+
+## Razer SDK
+
+The `RazerSDK` can be accessed using the `RazerSDK Cocos2d Plugin` which provides access to the `C++ API`.
+
+### InitPlugin
+
+See the [RazerSDK Documentation](https://github.com/razerofficial/razer-sdk-docs) for details on how to obtain the `Secret API Key`.
+
+```
+	std::string secretApiKey = "eyJkZXZlbG9wZXJfaWQiOiIzMTBhOGY1MS00ZDZlLTRhZTUtYmRhMC1iOTM4";
+	secretApiKey += "NzhlNWY1ZDAiLCJkZXZlbG9wZXJfcHVibGljX2tleSI6Ik1JR2ZNQTBHQ1Nx";
+	secretApiKey += "R1NJYjNEUUVCQVFVQUE0R05BRENCaVFLQmdRQ3BkZUs4SDh6NG9qb0czZUI4";
+	secretApiKey += "azU4SWpWaEpJUkQ5MSt0aGQ1NjJNaXlEa09teEhLSXFMUlFId25OZW4xRHkv";
+	secretApiKey += "TGxnTStzak1GaEZHL0dERUVWemRIeTRNNkkyc1l6bGR4VmNLWWFpUlhFa0ls";
+	secretApiKey += "NUNyWjhtRGdLaWgzOFNueDFPY3R3UzFQM0wxcXA3LzZiM2xlejY4ZmIyalVV";
+	secretApiKey += "WFpIaStaRDZROGlPbzE5V3Rhd0lEQVFBQiJ9";
+
+	RazerSDK::Plugin::initPlugin(secretApiKey, &_sMain_CallbacksInitPlugin);
+```

@@ -1,13 +1,13 @@
 //#define ANDROID
 #include "main.h"
 #include "..\..\..\Classes\AppDelegate.h"
-#include "..\..\..\Classes\HelloWorldScene.h"
 #include "cocos2d.h"
 #include "platform/android/jni/JniHelper.h"
 #include <jni.h>
 #include <android/log.h>
 
 #if ANDROID
+#include "..\..\..\Classes\HelloWorldScene.h"
 #include "RazerSDK\RazerSDK_Plugin.h"
 #endif
 
@@ -21,7 +21,7 @@ void cocos_android_app_init (JNIEnv* env) {
     AppDelegate *pAppDelegate = new AppDelegate();
 
 #if ANDROID
-	LOGD("Cocos2D Plugin Loading...");
+	LOGD("Cocos2D RazerSDK Plugin Loading...");
 	RazerSDK::Plugin::InitJNI();
 	HelloWorld::GetInstance()->InitPlugin();
 #endif

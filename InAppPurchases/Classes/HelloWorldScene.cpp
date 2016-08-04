@@ -44,7 +44,14 @@ Scene* HelloWorld::createScene()
 
 void HelloWorld::InitPlugin()
 {
-	RazerSDK::Plugin::initPlugin("eyJkZXZlbG9wZXJfaWQiOiIzMTBhOGY1MS00ZDZlLTRhZTUtYmRhMC1iOTM4NzhlNWY1ZDAiLCJkZXZlbG9wZXJfcHVibGljX2tleSI6Ik1JR2ZNQTBHQ1NxR1NJYjNEUUVCQVFVQUE0R05BRENCaVFLQmdRQ3BkZUs4SDh6NG9qb0czZUI4azU4SWpWaEpJUkQ5MSt0aGQ1NjJNaXlEa09teEhLSXFMUlFId25OZW4xRHkvTGxnTStzak1GaEZHL0dERUVWemRIeTRNNkkyc1l6bGR4VmNLWWFpUlhFa0lsNUNyWjhtRGdLaWgzOFNueDFPY3R3UzFQM0wxcXA3LzZiM2xlejY4ZmIyalVVWFpIaStaRDZROGlPbzE5V3Rhd0lEQVFBQiJ9", &_sMain_CallbacksInitPlugin);
+	std::string secretApiKey = "eyJkZXZlbG9wZXJfaWQiOiIzMTBhOGY1MS00ZDZlLTRhZTUtYmRhMC1iOTM4";
+	secretApiKey += "NzhlNWY1ZDAiLCJkZXZlbG9wZXJfcHVibGljX2tleSI6Ik1JR2ZNQTBHQ1Nx";
+	secretApiKey += "R1NJYjNEUUVCQVFVQUE0R05BRENCaVFLQmdRQ3BkZUs4SDh6NG9qb0czZUI4";
+	secretApiKey += "azU4SWpWaEpJUkQ5MSt0aGQ1NjJNaXlEa09teEhLSXFMUlFId25OZW4xRHkv";
+	secretApiKey += "TGxnTStzak1GaEZHL0dERUVWemRIeTRNNkkyc1l6bGR4VmNLWWFpUlhFa0ls";
+	secretApiKey += "NUNyWjhtRGdLaWgzOFNueDFPY3R3UzFQM0wxcXA3LzZiM2xlejY4ZmIyalVV";
+	secretApiKey += "WFpIaStaRDZROGlPbzE5V3Rhd0lEQVFBQiJ9";
+	RazerSDK::Plugin::initPlugin(secretApiKey, &_sMain_CallbacksInitPlugin);
 }
 
 // on "init" you need to initialize your instance
@@ -87,7 +94,7 @@ bool HelloWorld::init()
 	x = origin.x + TEXT_PADDING;
 	_mLabelStatusText = Label::createWithTTF("App Started", "fonts/Marker Felt.ttf", 12);
 	_mLabelStatusText->setPosition(Vec2(x, y));
-	_mLabelStatusText->setAnchorPoint(ccp(0, 0.5f));
+	_mLabelStatusText->setAnchorPoint(Vec2(0, 0.5f));
 	this->addChild(_mLabelStatusText, 1);
 	y -= VERT_PADDING;
 
@@ -102,7 +109,7 @@ bool HelloWorld::init()
 	x = origin.x + TEXT_PADDING;
 	_mLabelGamerInfoText = Label::createWithTTF("Need To Request", "fonts/Marker Felt.ttf", 12);
 	_mLabelGamerInfoText->setPosition(Vec2(x, y));
-	_mLabelGamerInfoText->setAnchorPoint(ccp(0, 0.5f));
+	_mLabelGamerInfoText->setAnchorPoint(Vec2(0, 0.5f));
 	this->addChild(_mLabelGamerInfoText, 1);
 	y -= VERT_PADDING;
 
@@ -205,7 +212,7 @@ void HelloWorld::UpdateReceipts(const std::vector<RazerSDK::Receipt> receipts)
 
 		Label* label = Label::createWithTTF(text, "fonts/Marker Felt.ttf", 12);
 		label->setPosition(Vec2(x, y));
-		label->setAnchorPoint(ccp(0, 0.5f));
+		label->setAnchorPoint(Vec2(0, 0.5f));
 		this->addChild(label, 1);
 
 		_mReceipts.push_back(label);

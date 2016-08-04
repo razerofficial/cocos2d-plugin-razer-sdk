@@ -68,6 +68,8 @@ $(VS_NdkRoot)\sources\android\native_app_glue
 
 * Copy `store-sdk-standard-release.jar` and `pluginrazersdk-release.jar` to the `proj.visualstudio\Cocos2d\libs` folder. `Cocos2d` appears to not support the `AAR` format yet...
 
+* In the `Solution Explorer` add existing libraries `store-sdk-standard-release.jar` and `pluginrazersdk-release.jar` to the `Cocos2d->libs` project.
+
 * Copy the repository's `RazerSDK` folder to the `proj.visualstudio\Cocos2dcpp\jni` project folder.
 
 * In the `Solution Explorer` add a `RazerSDK` filter to the `Cocos2dcpp->jni` project.

@@ -82,6 +82,8 @@ $(VS_NdkRoot)\sources\android\native_app_glue
 
 ### In-App-Purchase Example
 
+The [InAppPurchases](https://github.com/razerofficial/cocos2d-plugin-razer-sdk/tree/master/InAppPurchases) sample is a `Cocos2d` Visual Studio project. The sample source modifies the default `Cocos2d` generated source and includes the `RazerSDK` plugin.
+
 ![image_1](image-md/image_1.png)
 
 * Generate the `Cocos2d` project with the following command (similar to the following):

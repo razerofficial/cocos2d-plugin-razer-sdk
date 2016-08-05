@@ -64,7 +64,7 @@ $(VS_NdkRoot)\sources\android\native_app_glue
 
 * Click `OK`
 
-* Customize the `proj.visualstudio\Cocos2d\AndroidManifest.xml` to match the `package-name` from the [developer portal](https://devs.ouya.tv) game entry
+* Customize the [proj.visualstudio\Cocos2d\AndroidManifest.xml](https://github.com/razerofficial/cocos2d-plugin-razer-sdk/blob/master/InAppPurchases/proj.visualstudio/Cocos2d/AndroidManifest.xml) to match the `package-name` from the [developer portal](https://devs.ouya.tv) game entry
 
 * Copy `store-sdk-standard-release.jar` and `pluginrazersdk-release.jar` to the `proj.visualstudio\Cocos2d\libs` folder. `Cocos2d` appears to not support the `AAR` format yet...
 
@@ -75,6 +75,33 @@ $(VS_NdkRoot)\sources\android\native_app_glue
 * In the `Solution Explorer` add a `RazerSDK` filter to the `Cocos2dcpp->jni` project.
 
 * Add the existing `RazerSDK` source to the `RazerSDK` filter.
+
+* Customize the [proj.visualstudio/Cocos2d/src/org/cocos2dx/cpp/AppActivity.java](https://github.com/razerofficial/cocos2d-plugin-razer-sdk/blob/master/InAppPurchases/proj.visualstudio/Cocos2d/src/org/cocos2dx/cpp/AppActivity.java) to set the `Activity` and to pass `onActivityResult` to the `RazerSDK` plugin.
+
+```
+package org.cocos2dx.cpp;
+
+import android.content.Intent;
+import android.os.Bundle;
+import com.razerzone.store.sdk.engine.cocos2d.Plugin;
+import org.cocos2dx.lib.Cocos2dxActivity;
+
+public class AppActivity extends Cocos2dxActivity {
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		Plugin.setActivity(this);
+		super.onCreate(savedInstanceState);
+	}
+
+	@Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (Plugin.processOnActivityResult(requestCode, resultCode, data)) {
+			return;
+		}
+		super.onActivityResult (requestCode, resultCode, data);
+	}
+}
+``` 
 
 ## Examples 
 
@@ -102,7 +129,7 @@ cocos new -l cpp -p com.razerzone.store.sdk.engine.cocos2d.examples.inapppurchas
 
 #### Main.cpp
 
-The `InAppPurchases\proj.visualstudio\Cocos2dcpp\jni\main.cpp` has a special `JNI` hook to load the `RazerSDK` plugin.
+The [InAppPurchases\proj.visualstudio\Cocos2dcpp\jni\main.cpp](https://github.com/razerofficial/cocos2d-plugin-razer-sdk/blob/master/InAppPurchases/proj.visualstudio/Cocos2dcpp/jni/main.cpp) has a special `JNI` hook to load the `RazerSDK` plugin.
 
 ```
 // only runs on Android
@@ -117,7 +144,7 @@ The `InAppPurchases\proj.visualstudio\Cocos2dcpp\jni\main.cpp` has a special `JN
 #endif
 ```
 
-Use the main `JNI` hook to initialize the `Java` plugin at the right time. The sample has all the `RazerSDK API` calls in `InAppPurchases\Classes\HelloWorldScene.cpp`.
+Use the main `JNI` hook to initialize the `Java` plugin at the right time. The sample has all the `RazerSDK API` calls in [InAppPurchases\Classes\HelloWorldScene.cpp](https://github.com/razerofficial/cocos2d-plugin-razer-sdk/blob/master/InAppPurchases/Classes/HelloWorldScene.cpp).
 
 ```
 void cocos_android_app_init (JNIEnv* env) {
@@ -132,7 +159,7 @@ void cocos_android_app_init (JNIEnv* env) {
 }
 ```
 
-The `HelloWorldScene` defines several `RazerSDK` callbacks to handle communication from the `RazerSDK` back to `Cocos2d`. The callbacks are static to avoid the pointers from going out of scope.
+[InAppPurchases\Classes\HelloWorldScene.h](https://github.com/razerofficial/cocos2d-plugin-razer-sdk/blob/master/InAppPurchases/Classes/HelloWorldScene.h) defines several `RazerSDK` callbacks to handle communication from the `RazerSDK` back to `Cocos2d`. The callbacks are static to avoid the pointers from going out of scope.
 
 ```
 #if ANDROID
@@ -145,7 +172,7 @@ The `HelloWorldScene` defines several `RazerSDK` callbacks to handle communicati
 #endif
 ```
 
-The sample extends several `RazerSDK` callbacks so that the main application code can display results in the UI. The sample application callbacks are prefixed with `Main`.
+The sample extends several `RazerSDK` callbacks so that the main application code can display results in the UI. The sample application callbacks are prefixed with `Main`. [InAppPurchases/Classes/Main_CallbacksInitPlugin.h](https://github.com/razerofficial/cocos2d-plugin-razer-sdk/blob/master/InAppPurchases/Classes/Main_CallbacksInitPlugin.h) extends [InAppPurchases/proj.visualstudio/Cocos2dcpp/jni/RazerSDK/RazerSDK_CallbacksInitPlugin.h](https://github.com/razerofficial/cocos2d-plugin-razer-sdk/blob/master/InAppPurchases/proj.visualstudio/Cocos2dcpp/jni/RazerSDK/RazerSDK_CallbacksInitPlugin.h)
 
 ```
 #if ANDROID
@@ -161,7 +188,7 @@ public:
 #endif
 ```
 
-The `HelloWorldScene` uses `Cocos2d` button callbacks to invoke the `RazerSDK` API calls.
+[InAppPurchases/Classes/HelloWorldScene.cpp](https://github.com/razerofficial/cocos2d-plugin-razer-sdk/blob/master/InAppPurchases/Classes/HelloWorldScene.cpp) uses `Cocos2d` button callbacks to invoke the `RazerSDK` API calls.
 
 ```
 void HelloWorld::shutdownCallback(Ref* pSender)
@@ -170,7 +197,7 @@ void HelloWorld::shutdownCallback(Ref* pSender)
 }
 ```
 
-`RazerSDK` callbacks occur outside the main thread and the `cocos2d::Director` has to be used so that the callback can interact with the `Cocos2d` UI.
+`RazerSDK` callbacks occur outside the main thread and the `cocos2d::Director` has to be used so that the callback can interact with the `Cocos2d` UI. [InAppPurchases/Classes/Main_CallbacksShutdown.cpp](https://github.com/razerofficial/cocos2d-plugin-razer-sdk/blob/master/InAppPurchases/Classes/Main_CallbacksShutdown.cpp)
 
 ```
 void Main_CallbacksShutdown::OnSuccess()

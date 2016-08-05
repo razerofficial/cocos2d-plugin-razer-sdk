@@ -19,9 +19,11 @@ RENAME classes.jar pluginrazersdk-release.jar
 
 REM InAppPurchases
 
+COPY /Y store-sdk-standard-release.aar InAppPurchases\proj.android-studio\app\libs
 COPY /Y store-sdk-standard-release.aar InAppPurchases\proj.visualstudio\Cocos2d\libs
 COPY /Y store-sdk-standard-release.jar InAppPurchases\proj.visualstudio\Cocos2d\libs
 
+COPY /Y pluginrazersdk-release.aar InAppPurchases\proj.android-studio\app\libs
 COPY /Y pluginrazersdk-release.aar InAppPurchases\proj.visualstudio\Cocos2d\libs
 COPY /Y pluginrazersdk-release.jar InAppPurchases\proj.visualstudio\Cocos2d\libs
 

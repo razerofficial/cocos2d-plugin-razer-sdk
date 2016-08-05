@@ -20,6 +20,8 @@ USING_NS_CC;
 #define VERT_PADDING 5
 #define TEXT_PADDING 100
 
+#if ANDROID
+
 HelloWorld* HelloWorld::_sInstance = 0;
 Main_CallbacksInitPlugin HelloWorld::_sMain_CallbacksInitPlugin = Main_CallbacksInitPlugin();
 Main_CallbacksRequestGamerInfo HelloWorld::_sMain_CallbacksRequestGamerInfo = Main_CallbacksRequestGamerInfo();
@@ -27,6 +29,8 @@ Main_CallbacksRequestProducts HelloWorld::_sMain_CallbacksRequestProducts = Main
 Main_CallbacksRequestPurchase HelloWorld::_sMain_CallbacksRequestPurchase = Main_CallbacksRequestPurchase();
 Main_CallbacksRequestReceipts HelloWorld::_sMain_CallbacksRequestReceipts = Main_CallbacksRequestReceipts();
 Main_CallbacksShutdown HelloWorld::_sMain_CallbacksShutdown = Main_CallbacksShutdown();
+
+#endif
 
 Scene* HelloWorld::createScene()
 {
@@ -41,18 +45,6 @@ Scene* HelloWorld::createScene()
 
     // return the scene
     return scene;
-}
-
-void HelloWorld::InitPlugin()
-{
-	std::string secretApiKey = "eyJkZXZlbG9wZXJfaWQiOiIzMTBhOGY1MS00ZDZlLTRhZTUtYmRhMC1iOTM4";
-	secretApiKey += "NzhlNWY1ZDAiLCJkZXZlbG9wZXJfcHVibGljX2tleSI6Ik1JR2ZNQTBHQ1Nx";
-	secretApiKey += "R1NJYjNEUUVCQVFVQUE0R05BRENCaVFLQmdRQ3BkZUs4SDh6NG9qb0czZUI4";
-	secretApiKey += "azU4SWpWaEpJUkQ5MSt0aGQ1NjJNaXlEa09teEhLSXFMUlFId25OZW4xRHkv";
-	secretApiKey += "TGxnTStzak1GaEZHL0dERUVWemRIeTRNNkkyc1l6bGR4VmNLWWFpUlhFa0ls";
-	secretApiKey += "NUNyWjhtRGdLaWgzOFNueDFPY3R3UzFQM0wxcXA3LzZiM2xlejY4ZmIyalVV";
-	secretApiKey += "WFpIaStaRDZROGlPbzE5V3Rhd0lEQVFBQiJ9";
-	RazerSDK::Plugin::initPlugin(secretApiKey, &_sMain_CallbacksInitPlugin);
 }
 
 // on "init" you need to initialize your instance
@@ -176,6 +168,35 @@ void HelloWorld::UpdateGamerInfoText(const std::string& text)
 	_mLabelGamerInfoText->setString(text);
 }
 
+#if ANDROID
+
+void HelloWorld::InitPlugin()
+{
+	std::string secretApiKey = "eyJkZXZlbG9wZXJfaWQiOiIzMTBhOGY1MS00ZDZlLTRhZTUtYmRhMC1iOTM4";
+	secretApiKey += "NzhlNWY1ZDAiLCJkZXZlbG9wZXJfcHVibGljX2tleSI6Ik1JR2ZNQTBHQ1Nx";
+	secretApiKey += "R1NJYjNEUUVCQVFVQUE0R05BRENCaVFLQmdRQ3BkZUs4SDh6NG9qb0czZUI4";
+	secretApiKey += "azU4SWpWaEpJUkQ5MSt0aGQ1NjJNaXlEa09teEhLSXFMUlFId25OZW4xRHkv";
+	secretApiKey += "TGxnTStzak1GaEZHL0dERUVWemRIeTRNNkkyc1l6bGR4VmNLWWFpUlhFa0ls";
+	secretApiKey += "NUNyWjhtRGdLaWgzOFNueDFPY3R3UzFQM0wxcXA3LzZiM2xlejY4ZmIyalVV";
+	secretApiKey += "WFpIaStaRDZROGlPbzE5V3Rhd0lEQVFBQiJ9";
+	RazerSDK::Plugin::initPlugin(secretApiKey, &_sMain_CallbacksInitPlugin);
+}
+
+void HelloWorld::Shutdown()
+{
+	//Close the cocos2d-x game scene and quit the application
+	Director::getInstance()->end();
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	exit(0);
+#endif
+
+	/*To navigate back to native iOS screen(if present) without quitting the application, do not use Director::getInstance()->end() and exit(0) as given above,instead trigger a custom event created in RootViewController.mm as below*/
+
+	//EventCustom customEndEvent("game_scene_close_event");
+	//_eventDispatcher->dispatchEvent(&customEndEvent);
+}
+
 void HelloWorld::UpdateProducts(const std::vector<RazerSDK::Product>& products)
 {
 	for (ButtonWithLabel buttonLabel : _mProducts)
@@ -225,6 +246,8 @@ void HelloWorld::UpdateReceipts(const std::vector<RazerSDK::Receipt>& receipts)
 	}
 }
 
+#endif
+
 void HelloWorld::CreateButton(ButtonWithLabel& buttonWithLabel, const std::string& text, int x, int y, float hScale, const cocos2d::ccMenuCallback& callback)
 {
 	buttonWithLabel._mButton = MenuItemImage::create(
@@ -268,15 +291,18 @@ void HelloWorld::CreateButtonRequestReceipts(int x, int y)
 
 void HelloWorld::requestProductsCallback(Ref* pSender)
 {
+#if ANDROID
 	std::vector<std::string> products;
 	products.push_back("long_sword");
 	products.push_back("sharp_axe");
 	products.push_back("__DECLINED__THIS_PURCHASE");
 	RazerSDK::Plugin::requestProducts(products, &_sMain_CallbacksRequestProducts);
+#endif
 }
 
 void HelloWorld::requestPurchaseCallback(Ref* pSender)
 {
+#if ANDROID
 	MenuItemImage* button = dynamic_cast<cocos2d::MenuItemImage*>(pSender);
 	for (ButtonWithLabel buttonLabel : _mProducts)
 	{
@@ -292,34 +318,26 @@ void HelloWorld::requestPurchaseCallback(Ref* pSender)
 			break;
 		}
 	}
+#endif
 }
 
 void HelloWorld::requestReceiptsCallback(Ref* pSender)
 {
+#if ANDROID
 	RazerSDK::Plugin::requestReceipts(&_sMain_CallbacksRequestReceipts);
+#endif
 }
 
 void HelloWorld::requestGamerInfoCallback(Ref* pSender)
 {
+#if ANDROID
 	RazerSDK::Plugin::requestGamerInfo(&_sMain_CallbacksRequestGamerInfo);
+#endif
 }
 
 void HelloWorld::shutdownCallback(Ref* pSender)
 {
+#if ANDROID
 	RazerSDK::Plugin::shutdown(&_sMain_CallbacksShutdown);
-}
-
-void HelloWorld::Shutdown()
-{
-	//Close the cocos2d-x game scene and quit the application
-	Director::getInstance()->end();
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	exit(0);
 #endif
-
-	/*To navigate back to native iOS screen(if present) without quitting the application, do not use Director::getInstance()->end() and exit(0) as given above,instead trigger a custom event created in RootViewController.mm as below*/
-
-	//EventCustom customEndEvent("game_scene_close_event");
-	//_eventDispatcher->dispatchEvent(&customEndEvent);
 }

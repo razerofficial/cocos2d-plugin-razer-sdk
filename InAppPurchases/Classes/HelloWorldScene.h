@@ -1,5 +1,4 @@
-#ifndef __HELLOWORLD_SCENE_H__
-#define __HELLOWORLD_SCENE_H__
+#pragma once
 
 #include "cocos2d.h"
 
@@ -42,19 +41,23 @@ public:
 
 	static HelloWorld* GetInstance();
 
-	void InitPlugin();
-
-	void Shutdown();
-
 	void UpdateStatusText(const std::string& text);
 
 	void UpdateStatusErrorText(const std::string& context, const int errorCode, const std::string& errorMessage);
 
 	void UpdateGamerInfoText(const std::string& text);
 
+#if ANDROID
+
+	void InitPlugin();
+
+	void Shutdown();
+
 	void UpdateProducts(const std::vector<RazerSDK::Product>& products);
 
 	void UpdateReceipts(const std::vector<RazerSDK::Receipt>& receipts);
+
+#endif
 
 private:
 
@@ -91,5 +94,3 @@ private:
 #endif
 
 };
-
-#endif // __HELLOWORLD_SCENE_H__

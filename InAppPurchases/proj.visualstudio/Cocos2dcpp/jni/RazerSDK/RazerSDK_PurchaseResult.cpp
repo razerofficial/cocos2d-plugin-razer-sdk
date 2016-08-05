@@ -58,6 +58,10 @@ namespace RazerSDK
 		{
 			Identifier = jsonObject.getString(field);
 		}
+
+#if ENABLE_VERBOSE_LOGGING
+		__android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, "Identifier: %s", Identifier.c_str());
+#endif
 	}
 }
 

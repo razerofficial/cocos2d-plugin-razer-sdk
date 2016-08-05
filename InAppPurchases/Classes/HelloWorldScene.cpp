@@ -156,7 +156,7 @@ HelloWorld* HelloWorld::GetInstance()
 
 void HelloWorld::UpdateStatusText(const std::string& text)
 {
-	__android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, text.c_str());
+	__android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, "%s", text.c_str());
 	_mLabelStatusText->setString(text);
 }
 
@@ -285,7 +285,7 @@ void HelloWorld::requestPurchaseCallback(Ref* pSender)
 			std::string identifier = buttonLabel._mLabel->getString();
 			std::string text = "requestPurchase: ";
 			text += identifier;
-			__android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, text.c_str());
+			__android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, "%s", text.c_str());
 			HelloWorld::GetInstance()->UpdateStatusText(text);
 			std::string productType = "ENTITLEMENT";
 			RazerSDK::Plugin::requestPurchase(identifier, productType, &_sMain_CallbacksRequestPurchase);

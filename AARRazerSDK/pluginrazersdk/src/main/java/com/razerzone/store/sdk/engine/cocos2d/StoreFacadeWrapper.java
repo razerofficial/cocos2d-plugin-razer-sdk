@@ -356,13 +356,17 @@ public class StoreFacadeWrapper
 
 			@Override
 			public void onDestroyed() {
-				Log.i(TAG, "ContentInitListener: onDestroyed");
+				if (sEnableLogging) {
+					Log.d(TAG, "ContentInitListener: onDestroyed");
+				}
 				Plugin.getCallbacksContentInit().onDestroyed();
 			}
 
 			@Override
 			public void onInitialized() {
-				Log.i(TAG, "ContentInitListener: onInitialized");
+				if (sEnableLogging) {
+					Log.d(TAG, "ContentInitListener: onInitialized");
+				}
 				Plugin.getCallbacksContentInit().onInitialized();
 			}
 			
@@ -379,7 +383,9 @@ public class StoreFacadeWrapper
 
 			@Override
 			public void onResults(List<GameMod> gameMods, int count) {
-				Log.i(TAG, "InstalledSearchListener: onResults count="+count+" list count="+gameMods.size());
+				if (sEnableLogging) {
+					Log.d(TAG, "InstalledSearchListener: onResults count=" + count + " list count=" + gameMods.size());
+				}
 				Plugin.getCallbacksContentSearchInstalled().onResults(gameMods.toArray(new GameMod[gameMods.size()]), count);
 			}
 		};
@@ -393,7 +399,9 @@ public class StoreFacadeWrapper
 
 			@Override
 			public void onResults(List<GameMod> gameMods, int count) {
-				Log.i(TAG, "PublishedSearchListener: onResults count="+count+" list count="+gameMods.size());
+				if (sEnableLogging) {
+					Log.d(TAG, "PublishedSearchListener: onResults count="+count+" list count="+gameMods.size());
+				}
 				Plugin.getCallbacksContentSearchPublished().onResults(gameMods.toArray(new GameMod[gameMods.size()]), count);
 			}
 		};
@@ -408,7 +416,9 @@ public class StoreFacadeWrapper
 
 			@Override
 			public void onSuccess(GameMod gameMod) {
-				Log.i(TAG, "SaveListener: onSuccess");
+				if (sEnableLogging) {
+					Log.d(TAG, "SaveListener: onSuccess");
+				}
 				Plugin.getCallbacksContentSave().onSuccess(gameMod);
 			}			
 		};
@@ -423,7 +433,9 @@ public class StoreFacadeWrapper
 
 			@Override
 			public void onSuccess(GameMod gameMod) {
-				Log.i(TAG, "PublishListener: onSuccess");
+				if (sEnableLogging) {
+					Log.d(TAG, "PublishListener: onSuccess");
+				}
 				Plugin.getCallbacksContentPublish().onSuccess(gameMod);
 			}
 	    	
@@ -439,7 +451,9 @@ public class StoreFacadeWrapper
 
 			@Override
 			public void onSuccess(GameMod gameMod) {
-				Log.i(TAG, "UnpublishListener: onSuccess");
+				if (sEnableLogging) {
+					Log.d(TAG, "UnpublishListener: onSuccess");
+				}
 				Plugin.getCallbacksContentUnpublish().onSuccess(gameMod);
 			}
 	    	
@@ -455,7 +469,9 @@ public class StoreFacadeWrapper
 
 			@Override
 			public void onDeleted(GameMod gameMod) {
-				Log.i(TAG, "DeleteListener: onDeleted");
+				if (sEnableLogging) {
+					Log.d(TAG, "DeleteListener: onDeleted");
+				}
                 Plugin.getCallbacksContentDelete().onDeleted(gameMod);
 			}
 	    	
@@ -600,11 +616,15 @@ public class StoreFacadeWrapper
 
 				String jsonData = jarray.toString();
 
-				Log.i(TAG, "ReceiptListener ReceiptListListener jsonData=" + jsonData);
-                Plugin.getCallbacksRequestReceipts().onSuccess(jsonData);
+				if (sEnableLogging) {
+					Log.d(TAG, "ReceiptListener ReceiptListListener jsonData=" + jsonData);
+				}
+				Plugin.getCallbacksRequestReceipts().onSuccess(jsonData);
 			} else {
-				Log.i(TAG, "ReceiptListener ReceiptListListener jsonData=(empty)");
-                Plugin.getCallbacksRequestReceipts().onSuccess("");
+				if (sEnableLogging) {
+					Log.d(TAG, "ReceiptListener ReceiptListListener jsonData=(empty)");
+				}
+				Plugin.getCallbacksRequestReceipts().onSuccess("");
 			}
         }
 
@@ -617,8 +637,10 @@ public class StoreFacadeWrapper
         @Override
         public void onCancel()
 		{
-			Log.i(TAG, "ReceiptListener Invoke ReceiptListCancelListener");
-            Plugin.getCallbacksRequestReceipts().onCancel();
+			if (sEnableLogging) {
+				Log.d(TAG, "ReceiptListener Invoke ReceiptListCancelListener");
+			}
+			Plugin.getCallbacksRequestReceipts().onCancel();
 		}
     }
     

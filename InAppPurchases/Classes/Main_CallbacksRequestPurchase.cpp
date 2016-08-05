@@ -27,11 +27,13 @@
 #endif
 #define LOG_TAG "Main_CallbacksRequestPurchase"
 
-void Main_CallbacksRequestPurchase::OnSuccess(const RazerSDK::Product& purchaseResult)
+void Main_CallbacksRequestPurchase::OnSuccess(const RazerSDK::PurchaseResult& purchaseResult)
 {
 	cocos2d::Director::getInstance()->getScheduler()->performFunctionInCocosThread([purchaseResult] {
 		// execute code on main thread
-		HelloWorld::GetInstance()->UpdateStatusText("RequestPurchase: Success!");
+		std::string text = "RequestPurchase: Success! Purchased: ";
+		text += purchaseResult.Identifier;
+		HelloWorld::GetInstance()->UpdateStatusText(text);
 	});
 }
 

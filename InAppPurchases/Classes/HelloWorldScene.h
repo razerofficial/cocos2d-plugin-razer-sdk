@@ -52,9 +52,9 @@ public:
 
 	void UpdateGamerInfoText(const std::string& text);
 
-	void UpdateProducts(const std::vector<RazerSDK::Product> products);
+	void UpdateProducts(const std::vector<RazerSDK::Product>& products);
 
-	void UpdateReceipts(const std::vector<RazerSDK::Receipt> receipts);
+	void UpdateReceipts(const std::vector<RazerSDK::Receipt>& receipts);
 
 private:
 

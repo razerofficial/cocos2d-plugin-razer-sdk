@@ -23,17 +23,23 @@ public class CallbacksContentInit {
 
 	private final String TAG  = CallbacksContentInit.class.getSimpleName();
 
+	private static final boolean sEnableLogging = false;
+
 	public native void CallbacksContentInitOnInitialized();
 	public native void CallbacksContentInitOnDestroyed();
 
 	public void onInitialized() {
-		Log.i(TAG, "onInitialized");
+		if (sEnableLogging) {
+			Log.d(TAG, "onInitialized");
+		}
 		
 		CallbacksContentInitOnInitialized();
 	}
 
 	public void onDestroyed() {
-		Log.i(TAG, "onDestroyed");
+		if (sEnableLogging) {
+			Log.d(TAG, "onDestroyed");
+		}
 
 		CallbacksContentInitOnDestroyed();
 	}

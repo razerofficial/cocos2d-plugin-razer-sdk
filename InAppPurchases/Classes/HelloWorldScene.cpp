@@ -5,6 +5,7 @@
 #include "RazerSDK\RazerSDK_Plugin.h"
 
 #include <android/log.h>
+#include <iostream>  
 
 #ifdef LOG_TAG
 #undef LOG_TAG
@@ -173,7 +174,7 @@ void HelloWorld::UpdateGamerInfoText(const std::string& text)
 	_mLabelGamerInfoText->setString(text);
 }
 
-void HelloWorld::UpdateProducts(const std::vector<RazerSDK::Product> products)
+void HelloWorld::UpdateProducts(const std::vector<RazerSDK::Product>& products)
 {
 	for (ButtonWithLabel buttonLabel : _mProducts)
 	{
@@ -184,7 +185,7 @@ void HelloWorld::UpdateProducts(const std::vector<RazerSDK::Product> products)
 	_mProducts.clear();
 
 	int y = _mLabelProducts->getPosition().y;
-	for (RazerSDK::Product product : products)
+	for (const RazerSDK::Product& product : products)
 	{
 		std::string text = product.Identifier;
 		ButtonWithLabel buttonWithLabel = ButtonWithLabel();
@@ -194,7 +195,7 @@ void HelloWorld::UpdateProducts(const std::vector<RazerSDK::Product> products)
 	}
 }
 
-void HelloWorld::UpdateReceipts(const std::vector<RazerSDK::Receipt> receipts)
+void HelloWorld::UpdateReceipts(const std::vector<RazerSDK::Receipt>& receipts)
 {
 	for (cocos2d::Label* label : _mReceipts)
 	{
@@ -204,11 +205,14 @@ void HelloWorld::UpdateReceipts(const std::vector<RazerSDK::Receipt> receipts)
 
 	int x = _mLabelReceipts->getPosition().x;
 	int y = _mLabelReceipts->getPosition().y - _mLabelReceipts->getContentSize().height;
-	for (RazerSDK::Receipt receipt : receipts)
+	for (const RazerSDK::Receipt& receipt : receipts)
 	{
 		y -= 16;
 
-		std::string text = receipt.Identifier;
+		std::ostringstream stream;
+		stream << receipt.Identifier;
+		stream << " " << receipt.LocalPrice;
+		std::string text = stream.str();
 
 		Label* label = Label::createWithTTF(text, "fonts/Marker Felt.ttf", 12);
 		label->setPosition(Vec2(x, y));

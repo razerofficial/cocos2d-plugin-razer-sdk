@@ -16,16 +16,23 @@
 
 #pragma once
 
+// this code is Android specific
 #if ANDROID
 
-#include "RazerSDK\RazerSDK_CallbacksRequestPurchase.h"
+#include "RazerSDK_JsonObject.h"
 
-class Main_CallbacksRequestPurchase : public CallbacksRequestPurchase
+#include <string>
+
+namespace RazerSDK
 {
-public:
-	void OnSuccess(const RazerSDK::PurchaseResult& purchaseResult);
-	void OnFailure(int errorCode, const std::string& errorMessage);
-	void OnCancel();
-};
+	class PurchaseResult
+	{
+	public:
+		std::string Identifier;
+		
+		void Init();
+		void ParseJSON(const org_json_JSONObject::JSONObject& jsonObject);
+	};
+}
 
 #endif

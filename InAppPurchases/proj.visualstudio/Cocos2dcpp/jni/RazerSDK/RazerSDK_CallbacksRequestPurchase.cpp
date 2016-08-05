@@ -22,7 +22,7 @@
 
 #include <stdio.h>
 
-void CallbacksRequestPurchase::OnSuccess(const RazerSDK::Product& product)
+void CallbacksRequestPurchase::OnSuccess(const RazerSDK::PurchaseResult& product)
 {
 }
 

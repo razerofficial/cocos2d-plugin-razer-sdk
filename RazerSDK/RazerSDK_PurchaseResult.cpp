@@ -20,7 +20,13 @@
 #include "RazerSDK_PurchaseResult.h"
 #include "RazerSDK_JSONObject.h"
 
+#include <android/log.h>
 #include <string>
+
+#ifdef LOG_TAG
+#undef LOG_TAG
+#endif
+#define LOG_TAG "RazerSDK_PurchaseResult"
 
 #ifdef ENABLE_VERBOSE_LOGGING
 #undef ENABLE_VERBOSE_LOGGING
@@ -37,6 +43,10 @@ namespace RazerSDK
 	void PurchaseResult::ParseJSON(const org_json_JSONObject::JSONObject& jsonObject)
 	{
 		Init();
+
+#if ENABLE_VERBOSE_LOGGING
+		__android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, "jsonData=%s", jsonObject.toString().c_str());
+#endif
 
 		std::string field;
 

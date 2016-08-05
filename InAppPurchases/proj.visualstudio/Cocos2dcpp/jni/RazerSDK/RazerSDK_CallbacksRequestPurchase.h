@@ -19,7 +19,7 @@
 // this code is Android specific
 #if ANDROID
 
-#include "RazerSDK_Product.h"
+#include "RazerSDK_PurchaseResult.h"
 
 #include <string>
 
@@ -27,7 +27,7 @@ class CallbacksRequestPurchase
 {
 public:
 
-	virtual void OnSuccess(const RazerSDK::Product& purchaseResult);
+	virtual void OnSuccess(const RazerSDK::PurchaseResult& purchaseResult);
 
 	virtual void OnFailure(int errorCode, const std::string& errorMessage);
 

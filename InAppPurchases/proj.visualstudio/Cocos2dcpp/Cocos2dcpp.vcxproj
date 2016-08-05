@@ -954,6 +954,7 @@
     <ClInclude Include="jni\RazerSDK\RazerSDK_OutputStream.h" />
     <ClInclude Include="jni\RazerSDK\RazerSDK_Plugin.h" />
     <ClInclude Include="jni\RazerSDK\RazerSDK_Product.h" />
+    <ClInclude Include="jni\RazerSDK\RazerSDK_PurchaseResult.h" />
     <ClInclude Include="jni\RazerSDK\RazerSDK_Receipt.h" />
     <ClInclude Include="jni\RazerSDK\RazerSDK_String.h" />
   </ItemGroup>
@@ -1534,6 +1535,7 @@
     <ClCompile Include="jni\RazerSDK\RazerSDK_OutputStream.cpp" />
     <ClCompile Include="jni\RazerSDK\RazerSDK_Plugin.cpp" />
     <ClCompile Include="jni\RazerSDK\RazerSDK_Product.cpp" />
+    <ClCompile Include="jni\RazerSDK\RazerSDK_PurchaseResult.cpp" />
     <ClCompile Include="jni\RazerSDK\RazerSDK_Receipt.cpp" />
     <ClCompile Include="jni\RazerSDK\RazerSDK_String.cpp" />
   </ItemGroup>

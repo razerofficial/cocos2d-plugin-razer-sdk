@@ -20,7 +20,13 @@
 #include "RazerSDK_Receipt.h"
 #include "RazerSDK_JSONObject.h"
 
+#include <android/log.h>
 #include <string>
+
+#ifdef LOG_TAG
+#undef LOG_TAG
+#endif
+#define LOG_TAG "RazerSDK_Receipt"
 
 #ifdef ENABLE_VERBOSE_LOGGING
 #undef ENABLE_VERBOSE_LOGGING
@@ -43,6 +49,12 @@ namespace RazerSDK
 
 	void Receipt::ParseJSON(const org_json_JSONObject::JSONObject& jsonObject)
 	{
+		Init();
+
+#if ENABLE_VERBOSE_LOGGING
+		__android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, "jsonData=%s", jsonObject.toString().c_str());
+#endif
+
 		std::string field;
 
 #if ENABLE_VERBOSE_LOGGING
@@ -116,6 +128,17 @@ namespace RazerSDK
 		{
 			Uuid = jsonObject.getString(field);
 		}
+
+#if ENABLE_VERBOSE_LOGGING
+		__android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, "Currency: %s", Currency.c_str());
+		__android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, "GamerUuid: %s", GamerUuid.c_str());
+		__android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, "GeneratedDate: %s", GeneratedDate.c_str());
+		__android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, "Identifier: %s", Identifier.c_str());
+		__android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, "LocalPrice: %f", LocalPrice);
+		__android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, "PriceInCents: %d", PriceInCents);
+		__android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, "PurchaseDate: %s", PurchaseDate.c_str());
+		__android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, "Uuid: %s", Uuid.c_str());
+#endif
 	}
 }
 

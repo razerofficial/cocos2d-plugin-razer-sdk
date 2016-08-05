@@ -2356,6 +2356,9 @@
     <ClInclude Include="jni\RazerSDK\RazerSDK_String.h">
       <Filter>jni\RazerSDK</Filter>
     </ClInclude>
+    <ClInclude Include="jni\RazerSDK\RazerSDK_PurchaseResult.h">
+      <Filter>jni\RazerSDK</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="jni">
@@ -4395,6 +4398,9 @@
       <Filter>jni\RazerSDK</Filter>
     </ClCompile>
     <ClCompile Include="jni\RazerSDK\RazerSDK_String.cpp">
+      <Filter>jni\RazerSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\RazerSDK\RazerSDK_PurchaseResult.cpp">
       <Filter>jni\RazerSDK</Filter>
     </ClCompile>
   </ItemGroup>

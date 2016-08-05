@@ -329,13 +329,13 @@ extern "C" {
 
 		JSONObject jsonObject = JSONObject(strJsonData.c_str());
 
-		RazerSDK::Product product;
-		product.ParseJSON(jsonObject);
+		RazerSDK::PurchaseResult purchaseResult;
+		purchaseResult.ParseJSON(jsonObject);
 
 		CallbacksRequestPurchase* callback = CallbackSingleton::GetInstance()->m_callbacksRequestPurchase;
 		if (callback)
 		{
-			callback->OnSuccess(product);
+			callback->OnSuccess(purchaseResult);
 		}
 #if ENABLE_VERBOSE_LOGGING
 		else

@@ -156,16 +156,18 @@ HelloWorld* HelloWorld::GetInstance()
 
 void HelloWorld::UpdateStatusText(const std::string& text)
 {
+	__android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, text.c_str());
 	_mLabelStatusText->setString(text);
 }
 
 void HelloWorld::UpdateStatusErrorText(const std::string& context, const int errorCode, const std::string& errorMessage)
 {
-	std::string text = context;
-	text += ": ErrorCode=";
-	text += errorCode;
-	text += " Message=";
-	text += errorMessage;
+	std::ostringstream stream;
+	stream << context;
+	stream << ": ErrorCode=" << errorCode;
+	stream << " Message=" << errorMessage;
+	std::string text = stream.str();
+
 	_mLabelStatusText->setString(text);
 }
 

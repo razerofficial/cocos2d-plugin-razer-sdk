@@ -40,6 +40,10 @@ public class CallbacksShutdown {
 		if (sEnableLogging) {
 			Log.d(TAG, "onFailure: errorCode=" + errorCode + " errorMessage=" + errorMessage);
 		}
-		CallbacksShutdownOnFailure(errorCode, errorMessage);
+		if (null == errorMessage) {
+			CallbacksShutdownOnFailure(errorCode, "");
+		} else {
+			CallbacksShutdownOnFailure(errorCode, errorMessage);
+		}
 	}
 }

@@ -41,7 +41,11 @@ public class CallbacksRequestProducts {
 		if (sEnableLogging) {
 			Log.d(TAG, "onFailure: errorCode=" + errorCode + " errorMessage=" + errorMessage);
 		}
-		CallbacksRequestProductsOnFailure(errorCode, errorMessage);
+		if (null == errorMessage) {
+			CallbacksRequestProductsOnFailure(errorCode, "");
+		} else {
+			CallbacksRequestProductsOnFailure(errorCode, errorMessage);
+		}
 	}
 
 	public void onCancel() {

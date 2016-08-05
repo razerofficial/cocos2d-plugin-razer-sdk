@@ -40,6 +40,10 @@ public class CallbacksInitPlugin {
 		if (sEnableLogging) {
 			Log.d(TAG, "onFailure: errorCode=" + errorCode + " errorMessage=" + errorMessage);
 		}
-		CallbacksInitPluginOnFailure(errorCode, errorMessage);
+		if (null == errorMessage) {
+			CallbacksInitPluginOnFailure(errorCode, "");
+		} else {
+			CallbacksInitPluginOnFailure(errorCode, errorMessage);
+		}
 	}
 }

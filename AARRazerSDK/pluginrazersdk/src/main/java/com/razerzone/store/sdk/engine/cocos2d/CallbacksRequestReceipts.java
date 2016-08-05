@@ -41,7 +41,11 @@ public class CallbacksRequestReceipts {
 		if (sEnableLogging) {
 			Log.d(TAG, "onFailure: errorCode=" + errorCode + " errorMessage=" + errorMessage);
 		}
-		CallbacksRequestReceiptsOnFailure(errorCode, errorMessage);
+		if (null == errorMessage) {
+			CallbacksRequestReceiptsOnFailure(errorCode, "");
+		} else {
+			CallbacksRequestReceiptsOnFailure(errorCode, errorMessage);
+		}
 	}
 
 	public void onCancel() {

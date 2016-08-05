@@ -41,7 +41,11 @@ public class CallbacksRequestGamerInfo {
 		if (sEnableLogging) {
 			Log.d(TAG, "onFailure: errorCode=" + errorCode + " errorMessage=" + errorMessage);
 		}
-		CallbacksRequestGamerInfoOnFailure(errorCode, errorMessage);
+		if (null == errorMessage) {
+			CallbacksRequestGamerInfoOnFailure(errorCode, "");
+		} else {
+			CallbacksRequestGamerInfoOnFailure(errorCode, errorMessage);
+		}
 	}
 
 	public void onCancel() {

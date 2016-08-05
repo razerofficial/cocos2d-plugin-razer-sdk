@@ -6,7 +6,7 @@
         android:versionName="1.0">
 
   <uses-sdk android:minSdkVersion="9"/>
-  <application android:label="@string/app_name" android:icon="@drawable/icon">
+  <application android:label="@string/app_name" android:icon="@drawable/icon" android:isGame="true" android:banner="@drawable/icon">
 
     <!-- Tell Cocos2dxActivity the name of our so -->
     <meta-data android:name="android.app.lib_name" android:value="cocos2dcpp" />
@@ -20,6 +20,8 @@
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
+        <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+        <category android:name="com.razerzone.store.category.GAME" />
       </intent-filter>
     </activity>
   </application>

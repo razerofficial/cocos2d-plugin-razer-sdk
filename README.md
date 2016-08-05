@@ -113,6 +113,8 @@ The [InAppPurchases](https://github.com/razerofficial/cocos2d-plugin-razer-sdk/t
 
 ![image_1](image-md/image_1.png)
 
+#### Visual Studio Setup
+
 * Generate the `Cocos2d` project with the following command (similar to the following):
 
 ```
@@ -121,11 +123,33 @@ cocos new -l cpp -p com.razerzone.store.sdk.engine.cocos2d.examples.inapppurchas
 
 * Unpack `proj.visualstudio.zip` in the generated `InAppPurchases` folder
 
-* Copy this repository's `InAppPurchases` folder over the generated `InAppPurchases` folder
+* Copy this repository's [InAppPurchases](https://github.com/razerofficial/cocos2d-plugin-razer-sdk/tree/master/InAppPurchases) folder over the generated `InAppPurchases` folder
 
 * Open `InAppPurchases\proj.visualstudio\Cocos2d.sln` in `Visual Studio 2015`
 
 * In Visual Studio, Run with the `Debug->Run Without Debugging` menu item
+
+#### Android Studio Setup
+
+* Generate the `Cocos2d` project with the following command (similar to the following):
+
+```
+cocos new -l cpp -p com.razerzone.store.sdk.engine.cocos2d.examples.inapppurchases -d C:\Cocos2d InAppPurchases
+```
+
+* Copy this repository's [InAppPurchases](https://github.com/razerofficial/cocos2d-plugin-razer-sdk/tree/master/InAppPurchases) folder over the generated `InAppPurchases` folder
+
+* Open [InAppPurchases\proj.android-studio](https://github.com/razerofficial/cocos2d-plugin-razer-sdk/tree/master/InAppPurchases/proj.android-studio) in `Android Studio`
+
+* Navigate to the `InAppPurchases\proj.android-studio\app\jni` folder and run the following terminal command to build `NDK`:
+
+```
+ndk-build
+```
+
+* Wait for the `NDK` build to compile
+
+* In `Android Studio`, run the app with the `Run->Run app` menu item
 
 #### Main.cpp
 

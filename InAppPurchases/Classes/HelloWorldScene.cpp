@@ -24,6 +24,7 @@ USING_NS_CC;
 
 HelloWorld* HelloWorld::_sInstance = 0;
 Main_CallbacksInitPlugin HelloWorld::_sMain_CallbacksInitPlugin = Main_CallbacksInitPlugin();
+Main_CallbacksRequestLogin HelloWorld::_sMain_CallbacksRequestLogin = Main_CallbacksRequestLogin();
 Main_CallbacksRequestGamerInfo HelloWorld::_sMain_CallbacksRequestGamerInfo = Main_CallbacksRequestGamerInfo();
 Main_CallbacksRequestProducts HelloWorld::_sMain_CallbacksRequestProducts = Main_CallbacksRequestProducts();
 Main_CallbacksRequestPurchase HelloWorld::_sMain_CallbacksRequestPurchase = Main_CallbacksRequestPurchase();
@@ -106,20 +107,24 @@ bool HelloWorld::init()
 	this->addChild(_mLabelGamerInfoText, 1);
 	y -= VERT_PADDING;
 
+	/// login button
+    x = origin.x + LEFT_ANCHOR + 20;
+    CreateButton(_mButtonRequestLogin, "Login", x, y, 2.f, CC_CALLBACK_1(HelloWorld::requestLoginCallback, this));
+
 	/// request products button
-	x = origin.x + LEFT_ANCHOR + 20;
-	CreateButton(_mButtonRequestProducts, "RequestProducts", x, y, 3.f, CC_CALLBACK_1(HelloWorld::requestProductsCallback, this));
+	x = origin.x + LEFT_ANCHOR + 95;
+	CreateButton(_mButtonRequestProducts, "GetProducts", x, y, 2.5f, CC_CALLBACK_1(HelloWorld::requestProductsCallback, this));
 
 	/// request receipts button
-	x = origin.x + LEFT_ANCHOR + 125;
-	CreateButton(_mButtonRequestReceipts, "RequestReceipts", x, y, 3.f, CC_CALLBACK_1(HelloWorld::requestReceiptsCallback, this));
+	x = origin.x + LEFT_ANCHOR + 175;
+	CreateButton(_mButtonRequestReceipts, "GetReceipts", x, y, 2.5f, CC_CALLBACK_1(HelloWorld::requestReceiptsCallback, this));
 
 	/// request gamer info button
-	x = origin.x + LEFT_ANCHOR + 240;
-	CreateButton(_mButtonRequestGamerInfo, "RequestGamerInfo", x, y, 3.5f, CC_CALLBACK_1(HelloWorld::requestGamerInfoCallback, this));
+	x = origin.x + LEFT_ANCHOR + 265;
+	CreateButton(_mButtonRequestGamerInfo, "GetGamerInfo", x, y, 3.f, CC_CALLBACK_1(HelloWorld::requestGamerInfoCallback, this));
 
 	/// shutdown button
-	x = origin.x + LEFT_ANCHOR + 350;
+	x = origin.x + LEFT_ANCHOR + 360;
 	CreateButton(_mButtonShutdown, "Shutdown", x, y, 2.5f, CC_CALLBACK_1(HelloWorld::shutdownCallback, this));
 
 	y -= _mButtonRequestProducts._mButton->getContentSize().height;
@@ -325,6 +330,13 @@ void HelloWorld::requestReceiptsCallback(Ref* pSender)
 {
 #if ANDROID
 	RazerSDK::Plugin::requestReceipts(&_sMain_CallbacksRequestReceipts);
+#endif
+}
+
+void HelloWorld::requestLoginCallback(Ref* pSender)
+{
+#if ANDROID
+	RazerSDK::Plugin::requestLogin(&_sMain_CallbacksRequestLogin);
 #endif
 }
 

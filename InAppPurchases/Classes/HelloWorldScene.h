@@ -4,6 +4,7 @@
 
 #if ANDROID
 #include "Main_CallbacksInitPlugin.h"
+#include "Main_CallbacksRequestLogin.h"
 #include "Main_CallbacksRequestGamerInfo.h"
 #include "Main_CallbacksRequestProducts.h"
 #include "Main_CallbacksRequestPurchase.h"
@@ -31,6 +32,8 @@ public:
 	void requestPurchaseCallback(cocos2d::Ref* pSender);
 
 	void requestReceiptsCallback(cocos2d::Ref* pSender);
+
+	void requestLoginCallback(cocos2d::Ref* pSender);
     
 	void requestGamerInfoCallback(cocos2d::Ref* pSender);
 
@@ -78,6 +81,7 @@ private:
 
 	ButtonWithLabel _mButtonRequestProducts;
 	ButtonWithLabel _mButtonRequestReceipts;
+	ButtonWithLabel _mButtonRequestLogin;
 	ButtonWithLabel _mButtonRequestGamerInfo;
 	ButtonWithLabel _mButtonShutdown;
 
@@ -86,6 +90,7 @@ private:
 
 #if ANDROID
 	static Main_CallbacksInitPlugin _sMain_CallbacksInitPlugin;
+	static Main_CallbacksRequestLogin _sMain_CallbacksRequestLogin;
 	static Main_CallbacksRequestGamerInfo _sMain_CallbacksRequestGamerInfo;
 	static Main_CallbacksRequestProducts _sMain_CallbacksRequestProducts;
 	static Main_CallbacksRequestPurchase _sMain_CallbacksRequestPurchase;

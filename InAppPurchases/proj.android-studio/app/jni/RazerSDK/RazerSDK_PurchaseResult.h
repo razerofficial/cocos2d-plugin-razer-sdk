@@ -29,6 +29,7 @@ namespace RazerSDK
 	{
 	public:
 		std::string Identifier;
+		std::string OrderId;
 		
 		void Init();
 		void ParseJSON(const org_json_JSONObject::JSONObject& jsonObject);

@@ -14,6 +14,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../../Classes/AppDelegate.cpp \
                    ../../../Classes/HelloWorldScene.cpp \
 				   ../../../Classes/Main_CallbacksInitPlugin.cpp \
+				   ../../../Classes/Main_CallbacksRequestLogin.cpp \
 				   ../../../Classes/Main_CallbacksRequestGamerInfo.cpp \
 				   ../../../Classes/Main_CallbacksRequestProducts.cpp \
 				   ../../../Classes/Main_CallbacksRequestPurchase.cpp \
@@ -32,6 +33,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    RazerSDK/RazerSDK_CallbacksContentUnpublish.cpp \
                    RazerSDK/RazerSDK_CallbackSingleton.cpp \
                    RazerSDK/RazerSDK_CallbacksInitPlugin.cpp \
+                   RazerSDK/RazerSDK_CallbacksRequestLogin.cpp \
                    RazerSDK/RazerSDK_CallbacksRequestGamerInfo.cpp \
                    RazerSDK/RazerSDK_CallbacksRequestProducts.cpp \
                    RazerSDK/RazerSDK_CallbacksRequestPurchase.cpp \

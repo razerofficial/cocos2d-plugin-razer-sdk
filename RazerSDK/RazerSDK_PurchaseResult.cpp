@@ -38,6 +38,7 @@ namespace RazerSDK
 	void PurchaseResult::Init()
 	{
 		Identifier = "";
+		OrderId = "";
 	}
 
 	void PurchaseResult::ParseJSON(const org_json_JSONObject::JSONObject& jsonObject)
@@ -61,6 +62,19 @@ namespace RazerSDK
 
 #if ENABLE_VERBOSE_LOGGING
 		__android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, "Identifier: %s", Identifier.c_str());
+#endif
+
+#if ENABLE_VERBOSE_LOGGING
+		__android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, "Parse orderId");
+#endif
+		field = "orderId";
+		if (jsonObject.has(field))
+		{
+			OrderId = jsonObject.getString(field);
+		}
+
+#if ENABLE_VERBOSE_LOGGING
+		__android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, "OrderId: %s", OrderId.c_str());
 #endif
 	}
 }

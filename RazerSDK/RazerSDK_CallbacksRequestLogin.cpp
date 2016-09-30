@@ -14,26 +14,24 @@
 * limitations under the License.
 */
 
-#pragma once
-
-// this code is Android specific
+// this test is Android specific
 #if ANDROID
 
-#include "RazerSDK_JsonObject.h"
+#include "RazerSDK_CallbacksRequestLogin.h"
+#include "RazerSDK_CallbackSingleton.h"
 
-#include <string>
+#include <stdio.h>
 
-namespace RazerSDK
+void CallbacksRequestLogin::OnSuccess()
 {
-	class PurchaseResult
-	{
-	public:
-		std::string Identifier;
-		std::string OrderId;
-		
-		void Init();
-		void ParseJSON(const org_json_JSONObject::JSONObject& jsonObject);
-	};
+}
+
+void CallbacksRequestLogin::OnFailure(int errorCode, const std::string& errorMessage)
+{
+}
+
+void CallbacksRequestLogin::OnCancel()
+{
 }
 
 #endif

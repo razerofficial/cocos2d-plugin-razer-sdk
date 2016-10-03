@@ -190,6 +190,7 @@ void cocos_android_app_init (JNIEnv* env) {
 ```
 #if ANDROID
 	static Main_CallbacksInitPlugin _sMain_CallbacksInitPlugin;
+	static Main_CallbacksRequestLogin _sMain_CallbacksRequestLogin;
 	static Main_CallbacksRequestGamerInfo _sMain_CallbacksRequestGamerInfo;
 	static Main_CallbacksRequestProducts _sMain_CallbacksRequestProducts;
 	static Main_CallbacksRequestPurchase _sMain_CallbacksRequestPurchase;
@@ -266,9 +267,17 @@ The `RazerSDK::initPlugin` function takes a `std::string` parameter for the `Sec
 	RazerSDK::Plugin::initPlugin(secretApiKey, &_sMain_CallbacksInitPlugin);
 ```
 
+### RequestLogin
+
+`RazerSDK::requestLogin` opens a login dialog for the user to sign in. This method should only be invoked after the `RazerSDK` has successfully initialized. The `RazerSDK::requestLogin` function takes only a pointer to a `CallbacksRequestLogin` that can be extended. The `OnSuccess` callback is invoked if the operation completes successfully. The `OnFailure` callback is invoked if the operation failed. The `OnCancel` callback is invoked if the operation was canceled. The `OnSuccess` callback indicates the user has successfully logged in or the user was already logged in. The `OnFailure` callback indicates there was a problem logging in. The `OnCancel` callback indicates the user canceled signing in.
+
+```
+	RazerSDK::Plugin::requestLogin(&_sMain_CallbacksRequestLogin);
+```
+
 ### RequestGamerInfo
 
-`RazerSDK::requestGamerInfo` returns the `GamerInfo` for the logged in user. This method should only be invoked after the `RazerSDK` has successfully initialized. The `RazerSDK::requestGamerInfo` function takes only a pointer to a `CallbacksRequestProducts` that can be extended. The `OnSuccess` callback is invoked if the operation completes successfully. The `OnFailure` callback is invoked if the operation failed. The `OnCancel` callback is invoked if the operation was canceled. The `OnSuccess` delegate receives a `RazerSDK::GamerInfo` object. The `RazerSDK::GamerInfo` object provides the `Username` and `Uuid` fields.
+`RazerSDK::requestGamerInfo` returns the `GamerInfo` for the logged in user. This method should only be invoked after the `RazerSDK` has successfully initialized. The `RazerSDK::requestGamerInfo` function takes only a pointer to a `CallbacksRequestGamerInfo` that can be extended. The `OnSuccess` callback is invoked if the operation completes successfully. The `OnFailure` callback is invoked if the operation failed. The `OnCancel` callback is invoked if the operation was canceled. The `OnSuccess` callback receives a `RazerSDK::GamerInfo` object. The `RazerSDK::GamerInfo` object provides the `Username` and `Uuid` fields. The `OnFailure` callback is invoked if the user is not logged in.
 
 ```
 	RazerSDK::Plugin::requestGamerInfo(&_sMain_CallbacksRequestGamerInfo);
@@ -288,7 +297,7 @@ The `RazerSDK::initPlugin` function takes a `std::string` parameter for the `Sec
 
 ### RequestPurchase
 
-`RazerSDK::requestPurchase` initiates a purchase for the logged in user given the `identifier` and `product type`. The `product type` can be `ENTITLEMENT` or `CONSUMABLE`. This method should only be invoked after the `RazerSDK` has successfully initialized. The `RazerSDK::requestPurchase` function takes a `std::string` for the `identifier` and `product type` parameters. Entitlements and consumables need to correspond to the items that were created in the [developer portal](https://devs.ouya.tv). The second parameter takes a pointer to a `CallbacksRequestPurchase` that can be extended. The `OnSuccess` callback is invoked if the operation completes successfully. The `OnFailure` callback is invoked if the operation failed. The `OnCancel` callback is invoked if the operation was canceled. The `OnSuccess` callback receives a `RazerSDK::PurchaseResult` object. The `RazerSDK::PurchaseResult` object provides the `Identifier` that was just purchased by the logged in user.
+`RazerSDK::requestPurchase` initiates a purchase for the logged in user given the `identifier` and `product type`. The `product type` can be `ENTITLEMENT` or `CONSUMABLE`. This method should only be invoked after the `RazerSDK` has successfully initialized. The `RazerSDK::requestPurchase` function takes a `std::string` for the `identifier` and `product type` parameters. Entitlements and consumables need to correspond to the items that were created in the [developer portal](https://devs.ouya.tv). The second parameter takes a pointer to a `CallbacksRequestPurchase` that can be extended. The `OnSuccess` callback is invoked if the operation completes successfully. The `OnFailure` callback is invoked if the operation failed. The `OnCancel` callback is invoked if the operation was canceled. The `OnSuccess` callback receives a `RazerSDK::PurchaseResult` object. The `RazerSDK::PurchaseResult` object provides the `Identifier` that was just purchased by the logged in user. The `OnFailure` callback is invoked if the user is not logged in.
 
 ```
 	std::string identifier = "long_sword";
@@ -304,7 +313,7 @@ The `RazerSDK::initPlugin` function takes a `std::string` parameter for the `Sec
 
 ### RequestReceipts
 
-`RazerSDK::requestReceipts` returns all the `ENTITLEMENT` receipts for the logged in user. This method should only be invoked after the `RazerSDK` has successfully initialized. The `RazerSDK::requestReceipts` function takes only a pointer to a `CallbacksRequestProducts` that can be extended. The `OnSuccess` callback is invoked if the operation completes successfully. The `OnFailure` callback is invoked if the operation failed. The `OnCancel` callback is invoked if the operation was canceled. The `OnSuccess` callback receives a `RazerSDK::Receipt` vector. The `RazerSDK::Receipt` object provides the `Identifier`, `LocalPrice`, and several other fields.
+`RazerSDK::requestReceipts` returns all the `ENTITLEMENT` receipts for the logged in user. This method should only be invoked after the `RazerSDK` has successfully initialized. The `RazerSDK::requestReceipts` function takes only a pointer to a `CallbacksRequestProducts` that can be extended. The `OnSuccess` callback is invoked if the operation completes successfully. The `OnFailure` callback is invoked if the operation failed. The `OnCancel` callback is invoked if the operation was canceled. The `OnSuccess` callback receives a `RazerSDK::Receipt` vector. The `RazerSDK::Receipt` object provides the `Identifier`, `LocalPrice`, and several other fields. The `OnFailure` callback is invoked if the user is not logged in.
 
 ```
 	RazerSDK::Plugin::requestReceipts(&_sMain_CallbacksRequestReceipts);
